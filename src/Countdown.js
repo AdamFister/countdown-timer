@@ -7,28 +7,34 @@ class Countdown extends Component {
         timerOn: false,
         timerStart: 0,
         timerTime: 0,
-        run: false
+        timerSpeed: 10,
+        halfwayTime: 0,
+        timerDone: false,
     };
 
     startTimer = () => {
         this.setState({
             timerOn: true,
             timerTime: this.state.timerTime,
-            timerStart: this.state.timerTime
+            timerStart: this.state.timerTime,
+            halfwayTime: this.state.timerTime / 2 + 500
         });
 
         this.timer = setInterval(() => {
-            const newTime = this.state.timerTime - 10;
+            const newTime = this.state.timerTime - this.state.timerSpeed;
             if (newTime >= 0) {
                 this.setState({
                     timerTime: newTime
                 });
             } else {
                 clearInterval(this.timer);
-                this.setState({ timerOn: false });
-                alert("Countdown ended");
+                this.setState({ 
+                    timerOn: false,
+                    timerDone: true
+                 });
             }
         }, 10);
+
     };
 
     stopTimer = () => {
@@ -61,10 +67,24 @@ class Countdown extends Component {
     };
 
     speedChangeClick = input => {
-        console.log("INPUT ", input)
+        this.setState({ timerSpeed: input });
     }
 
     render() {
+        let notification;
+
+        if (this.state.timerTime <= this.state.halfwayTime && this.state.timerTime !== 0) {
+            console.log('this.state.timerTime ', this.state.timerTime)
+            console.log('this.state.halfwayTime ', this.state.halfwayTime)
+            notification = <div>"More than halfway there!"</div>
+        }
+        else if (this.state.timerDone) {
+            notification = <div>"Time's up!"</div>
+        }
+        else {
+            notification = <div></div>
+        }
+
         const { timerTime, timerStart, timerOn } = this.state;
 
         let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
@@ -72,6 +92,7 @@ class Countdown extends Component {
 
         return (
             <div>
+                {notification}
                 <div className="Countdown-header">Countdown</div>
                 <div className="Countdown-label">Minutes : Seconds</div>
                 <div className="Countdown-display">
@@ -99,9 +120,9 @@ class Countdown extends Component {
                         <button onClick={this.resetTimer}>Reset</button>
                     )}
                 <div>
-                    <button onClick={ () => this.speedChangeClick(1)}>1x</button>
-                    <button onClick={ () => this.speedChangeClick(1.5)}>1.5x</button>
-                    <button onClick={ () => this.speedChangeClick(2)}>2x</button>
+                    <button onClick={ () => this.speedChangeClick(10)}>1x</button>
+                    <button onClick={ () => this.speedChangeClick(15)}>1.5x</button>
+                    <button onClick={ () => this.speedChangeClick(20)}>2x</button>
                 </div>
             </div>
         );

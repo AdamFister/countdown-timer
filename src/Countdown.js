@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { connect } from 'react-redux';
-import updateMovies from './store/actions/updateMovies';
+import updateVariable from './store/actions/updateVariable';
 
 class Countdown extends Component {
 
@@ -81,10 +81,11 @@ class Countdown extends Component {
     render() {
         const {
             movies,
-            updateMovies,
+            updateVariable
         } = this.props;
 
         console.log('movies ', movies)
+        console.log('movies.testVariable ', movies.testVariable)
 
         let notification;
         let timerRed = false;
@@ -148,11 +149,11 @@ class Countdown extends Component {
                     <button onClick={() => this.speedChangeClick(15)}>1.5x</button>
                     <button onClick={() => this.speedChangeClick(20)}>2x</button>
                 </div>
-                <span
+                <div
                     style={{ color: 'green' }}
-                >YOUR CURRENT MOVIE IS: {movies.name}</span>
+                >TEST VARIABLE: {movies.testVariable}</div>
                 <br />
-                <button onClick={updateMovies}>SELECT NEW MOVIE</button>
+                <button onClick={updateVariable}>Update Variable</button>
             </div>
         );
     }
@@ -160,13 +161,14 @@ class Countdown extends Component {
 
 const MapStateToProps = (state) => {
     return {
-        movies: state.movies
+        movies: state.movies,
+        testVariable: state.testVariable,
     };
 };
 
 const MapDispatchToProps = (dispatch) => {
     return {
-        updateMovies: () => dispatch(updateMovies)
+        updateVariable: () => dispatch(updateVariable)
     }
 };
 

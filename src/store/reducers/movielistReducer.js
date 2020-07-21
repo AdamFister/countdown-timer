@@ -1,9 +1,9 @@
-import { UPDATE_MOVIES } from '../actions/updateMovies';
+import { UPDATE_VARIABLE } from '../actions/updateVariable';
 
 const movielistReducer = (state = {}, { type, payload }) => {
     switch (type) {
-        case UPDATE_MOVIES:
-            return { name: payload }
+        case UPDATE_VARIABLE:
+            return { testVariable: payload }
         default:
             return state
     };

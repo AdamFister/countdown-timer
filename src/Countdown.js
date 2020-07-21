@@ -1,5 +1,8 @@
+// MUST RUN npm i redux react-redux redux-thunk
 import React, { Component } from "react";
 import "./App.css";
+import { connect } from 'react-redux';
+import updateMovies from './store/actions/updateMovies';
 
 class Countdown extends Component {
 
@@ -76,6 +79,13 @@ class Countdown extends Component {
     }
 
     render() {
+        const {
+            movies,
+            updateMovies,
+        } = this.props;
+
+        console.log('movies ', movies)
+
         let notification;
         let timerRed = false;
         let timerBlink = false;
@@ -138,9 +148,26 @@ class Countdown extends Component {
                     <button onClick={() => this.speedChangeClick(15)}>1.5x</button>
                     <button onClick={() => this.speedChangeClick(20)}>2x</button>
                 </div>
+                <span
+                    style={{ color: 'green' }}
+                >YOUR CURRENT MOVIE IS: {movies.name}</span>
+                <br />
+                <button onClick={updateMovies}>SELECT NEW MOVIE</button>
             </div>
         );
     }
 }
 
-export default Countdown;
+const MapStateToProps = (state) => {
+    return {
+        movies: state.movies
+    };
+};
+
+const MapDispatchToProps = (dispatch) => {
+    return {
+        updateMovies: () => dispatch(updateMovies)
+    }
+};
+
+export default connect(MapStateToProps, MapDispatchToProps)(Countdown);

@@ -10,6 +10,7 @@ class Countdown extends Component {
         timerSpeed: 10,
         halfwayTime: 0,
         timerDone: false,
+        timerStarted: false
     };
 
     startTimer = () => {
@@ -17,7 +18,9 @@ class Countdown extends Component {
             timerOn: true,
             timerTime: this.state.timerTime,
             timerStart: this.state.timerTime,
-            halfwayTime: this.state.timerTime / 2 + 500
+            halfwayTime: this.state.timerTime / 2 + 500,
+            timerStarted: true,
+            timerDone: false,
         });
 
         this.timer = setInterval(() => {
@@ -28,10 +31,12 @@ class Countdown extends Component {
                 });
             } else {
                 clearInterval(this.timer);
-                this.setState({ 
+                this.setState({
                     timerOn: false,
-                    timerDone: true
-                 });
+                    timerDone: true,
+                    timerStarted: false,
+                    timerBlink: false,
+                });
             }
         }, 10);
 
@@ -72,10 +77,10 @@ class Countdown extends Component {
 
     render() {
         let notification;
+        let timerRed = false;
+        let timerBlink = false;
 
-        if (this.state.timerTime <= this.state.halfwayTime && this.state.timerTime !== 0) {
-            console.log('this.state.timerTime ', this.state.timerTime)
-            console.log('this.state.halfwayTime ', this.state.halfwayTime)
+        if (this.state.timerTime <= this.state.halfwayTime && this.state.timerOn) {
             notification = <div>"More than halfway there!"</div>
         }
         else if (this.state.timerDone) {
@@ -83,6 +88,13 @@ class Countdown extends Component {
         }
         else {
             notification = <div></div>
+        }
+
+        if (this.state.timerTime <= 21000 && this.state.timerStarted) {
+            timerRed = true;
+            if (this.state.timerTime <= 11000 && this.state.timerStarted) {
+                timerBlink = true;
+            }
         }
 
         const { timerTime, timerStart, timerOn } = this.state;
@@ -98,8 +110,10 @@ class Countdown extends Component {
                 <div className="Countdown-display">
                     <button onClick={() => this.adjustTimer("incMinutes")}>&#8679;</button>
                     <button onClick={() => this.adjustTimer("incSeconds")}>&#8679;</button>
-                    <div className="Countdown-time">
-                        {minutes} : {seconds}
+                    <div className={timerRed === false ? "Countdown-time" : "Countdown-red"}>
+                        <div className={timerBlink === false ? "Countdown-time" : "Countdown-blink"}>
+                            {minutes} : {seconds}
+                        </div>
                     </div>
                     <button onClick={() => this.adjustTimer("decMinutes")}>&#8681;</button>
                     <button onClick={() => this.adjustTimer("decSeconds")}>&#8681;</button>
@@ -120,9 +134,9 @@ class Countdown extends Component {
                         <button onClick={this.resetTimer}>Reset</button>
                     )}
                 <div>
-                    <button onClick={ () => this.speedChangeClick(10)}>1x</button>
-                    <button onClick={ () => this.speedChangeClick(15)}>1.5x</button>
-                    <button onClick={ () => this.speedChangeClick(20)}>2x</button>
+                    <button onClick={() => this.speedChangeClick(10)}>1x</button>
+                    <button onClick={() => this.speedChangeClick(15)}>1.5x</button>
+                    <button onClick={() => this.speedChangeClick(20)}>2x</button>
                 </div>
             </div>
         );

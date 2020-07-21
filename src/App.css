@@ -82,3 +82,18 @@ button:hover {
   font-size: 36px;
   margin: 5px 0;
 }
+.Countdown-red {
+  font-size: 36px;
+  margin: 5px 0;
+  color: #ff0000;
+}
+.Countdown-blink {
+  animation:blinkingText 0.5s infinite;
+}
+@keyframes blinkingText{
+  0%{     color: #ff0000;    }
+  49%{    color: #ff0000; }
+  60%{    color: transparent; }
+  99%{    color:transparent;  }
+  100%{   color: #ff0000;    }
+}

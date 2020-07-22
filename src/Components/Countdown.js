@@ -43,7 +43,6 @@ class Countdown extends Component {
                 });
             }
         }, 10);
-
     };
 
     stopTimer = () => {
@@ -81,13 +80,13 @@ class Countdown extends Component {
 
     render() {
         const {
-            variables,
+            timerState,
             updateVariable,
             updateTest2
         } = this.props;
 
-        console.log('variables ', variables)
-        console.log('variables.testVariable ', variables.testVariable)
+        console.log('timerState ', timerState)
+        console.log('timerState.testVariable ', timerState.testVariable)
 
         let notification;
         let timerRed = false;
@@ -153,12 +152,12 @@ class Countdown extends Component {
                 </div>
                 <div
                     style={{ color: 'green' }}
-                >TEST VARIABLE: {variables.testVariable}</div>
+                >TEST VARIABLE: {timerState.testVariable}</div>
                 <br />
                 <button onClick={updateVariable}>Update Variable</button>
                 <div
                     style={{ color: 'green' }}
-                >TEST2: {variables.test2}</div>
+                >TEST2: {timerState.test2}</div>
                 <br />
                 <button onClick={updateTest2}>Update Test2</button>
             </div>
@@ -168,7 +167,7 @@ class Countdown extends Component {
 
 const MapStateToProps = (state) => {
     return {
-        variables: state.variables,
+        timerState: state.timerState,
         testVariable: state.testVariable,
         test2: state.test2
     };

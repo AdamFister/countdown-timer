@@ -1,10 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import countdownReducer from './reducers/countdownReducer';
 
-const reducer = combineReducers({ variables: countdownReducer });
+const reducer = combineReducers({ timerState: countdownReducer });
 
 const initialState = {
-    variables: {
+    timerState: {
         testVariable: false,
         test2: "orange"
     },

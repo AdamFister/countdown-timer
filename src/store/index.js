@@ -1,11 +1,12 @@
 import { createStore, combineReducers } from 'redux';
-import movielistReducer from './reducers/movielistReducer';
+import countdownReducer from './reducers/countdownReducer';
 
-const reducer = combineReducers({ movies: movielistReducer });
+const reducer = combineReducers({ variables: countdownReducer });
 
 const initialState = {
-    movies: {
-        testVariable: false
+    variables: {
+        testVariable: false,
+        test2: "orange"
     },
 };
 

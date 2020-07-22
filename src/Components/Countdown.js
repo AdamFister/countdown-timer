@@ -1,8 +1,9 @@
 // MUST RUN npm i redux react-redux redux-thunk
 import React, { Component } from "react";
-import "./App.css";
+import "../App.css";
 import { connect } from 'react-redux';
-import updateVariable from './store/actions/updateVariable';
+import updateVariable from '../store/actions/updateVariable';
+import updateTest2 from '../store/actions/updateTest2';
 
 class Countdown extends Component {
 
@@ -80,12 +81,13 @@ class Countdown extends Component {
 
     render() {
         const {
-            movies,
-            updateVariable
+            variables,
+            updateVariable,
+            updateTest2
         } = this.props;
 
-        console.log('movies ', movies)
-        console.log('movies.testVariable ', movies.testVariable)
+        console.log('variables ', variables)
+        console.log('variables.testVariable ', variables.testVariable)
 
         let notification;
         let timerRed = false;
@@ -151,9 +153,14 @@ class Countdown extends Component {
                 </div>
                 <div
                     style={{ color: 'green' }}
-                >TEST VARIABLE: {movies.testVariable}</div>
+                >TEST VARIABLE: {variables.testVariable}</div>
                 <br />
                 <button onClick={updateVariable}>Update Variable</button>
+                <div
+                    style={{ color: 'green' }}
+                >TEST VARIABLE: {variables.test2}</div>
+                <br />
+                <button onClick={updateTest2}>Update Test2</button>
             </div>
         );
     }
@@ -161,14 +168,16 @@ class Countdown extends Component {
 
 const MapStateToProps = (state) => {
     return {
-        movies: state.movies,
+        variables: state.variables,
         testVariable: state.testVariable,
+        test2: state.test2
     };
 };
 
 const MapDispatchToProps = (dispatch) => {
     return {
-        updateVariable: () => dispatch(updateVariable)
+        updateVariable: () => dispatch(updateVariable),
+        updateTest2: () => dispatch(updateTest2)
     }
 };
 

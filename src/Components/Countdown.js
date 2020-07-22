@@ -150,11 +150,14 @@ class Countdown extends Component {
                     <button onClick={() => this.speedChangeClick(15)}>1.5x</button>
                     <button onClick={() => this.speedChangeClick(20)}>2x</button>
                 </div>
+                <br />
                 <div
                     style={{ color: 'green' }}
-                >TEST VARIABLE: {timerState.testVariable}</div>
+                >TEST VARIABLE: {timerState.testVariable.toString()}</div>
                 <br />
-                <button onClick={updateVariable}>Update Variable</button>
+                <button onClick={updateVariable}>Update Test Variable</button>
+                <br />
+                <br />
                 <div
                     style={{ color: 'green' }}
                 >TEST2: {timerState.test2}</div>

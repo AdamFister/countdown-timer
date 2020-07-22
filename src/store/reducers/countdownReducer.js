@@ -12,10 +12,18 @@ const countdownReducer = (state = {}, { type, testVariable, test2 }) => {
                 testVariable: !state.testVariable
             }
         case UPDATE_TEST2:
-            return {
-                ...state,
-                test2: "red"
+            if (state.test2 === "orange") {
+                return {
+                    ...state,
+                    test2: "red"
+                }
+            } else {
+                return {
+                    ...state,
+                    test2: "orange"
+                }
             }
+            
         default:
             return state
     };

@@ -158,7 +158,7 @@ class Countdown extends Component {
                 <button onClick={updateVariable}>Update Variable</button>
                 <div
                     style={{ color: 'green' }}
-                >TEST VARIABLE: {variables.test2}</div>
+                >TEST2: {variables.test2}</div>
                 <br />
                 <button onClick={updateTest2}>Update Test2</button>
             </div>
